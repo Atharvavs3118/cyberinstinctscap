@@ -1,0 +1,6 @@
+{
+  "name": "CyberInstincts",
+  "description": "Cyber Threat & File Protection System - Security Operations Center platform integrating real-time incident monitoring, threat analysis, and cryptographic file integrity verification.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

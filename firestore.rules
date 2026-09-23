@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Users collection: user profiles
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isAuthenticated() || request.auth == null;
+    }
+
+    // Incidents collection: CyberTrace threat telemetry
+    match /incidents/{incidentId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Protected files: MiniVault integrity records
+    match /protected_files/{fileId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Notifications collection: SOC alert notices
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Security events collection: append-only immutable audit trail
+    match /security_events/{eventId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // Government liaison reports: statutory reporting
+    match /government_reports/{reportId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    // Government threat advisories: national cyber alerts
+    match /government_advisories/{advisoryId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

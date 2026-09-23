@@ -1,0 +1,166 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "CyberInstincts SOC user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "fullName": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" },
+        "department": { "type": "string" },
+        "avatar": { "type": "string" },
+        "mfaEnabled": { "type": "boolean" },
+        "lastLogin": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Incident": {
+      "title": "Incident",
+      "description": "CyberTrace incident and threat investigation record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "incidentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "threatType": { "type": "string" },
+        "sourceIp": { "type": "string" },
+        "source": { "type": "string" },
+        "target": { "type": "string" },
+        "severity": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },
+        "status": { "type": "string", "enum": ["OPEN", "INVESTIGATING", "CONTAINED", "RESOLVED", "CLOSED"] },
+        "timestamp": { "type": "string" },
+        "description": { "type": "string" },
+        "detectionMethod": { "type": "string" },
+        "evidence": { "type": "string" },
+        "evidenceUrl": { "type": "string" },
+        "resolution": { "type": "string" },
+        "cvssScore": { "type": "number" },
+        "mitreTactic": { "type": "string" }
+      },
+      "required": ["incidentId", "threatType", "severity", "status"]
+    },
+    "ProtectedFile": {
+      "title": "ProtectedFile",
+      "description": "MiniVault file integrity baseline record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fileId": { "type": "string" },
+        "userId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileType": { "type": "string" },
+        "size": { "type": "number" },
+        "fileSize": { "type": "number" },
+        "originalHash": { "type": "string" },
+        "currentHash": { "type": "string" },
+        "sha256Hash": { "type": "string" },
+        "storageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["VERIFIED", "MODIFIED", "WARNING", "MISSING"] },
+        "integrityStatus": { "type": "string" },
+        "uploadDate": { "type": "string" },
+        "lastVerified": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["fileName", "originalHash", "status"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "SOC alert drawer notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "severity": { "type": "string", "enum": ["critical", "warning", "info"] },
+        "timestamp": { "type": "string" },
+        "read": { "type": "boolean" },
+        "entityId": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["title", "message", "severity", "timestamp"]
+    },
+    "SecurityEvent": {
+      "title": "SecurityEvent",
+      "description": "SOC audit log event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "eventType": { "type": "string" },
+        "description": { "type": "string" },
+        "ip": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "severity": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"] },
+        "userId": { "type": "string" }
+      },
+      "required": ["eventType", "description", "severity", "timestamp"]
+    },
+    "GovernmentReport": {
+      "title": "GovernmentReport",
+      "description": "Statutory regulatory incident dispatch records (CERT-In, CISA, ENISA)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "incidentId": { "type": "string" },
+        "incidentTitle": { "type": "string" },
+        "agency": { "type": "string" },
+        "severity": { "type": "string" },
+        "status": { "type": "string" },
+        "reportedBy": { "type": "string" },
+        "submittedAt": { "type": "string" },
+        "narrative": { "type": "string" },
+        "remediationSteps": { "type": "string" }
+      },
+      "required": ["incidentTitle", "agency", "severity", "submittedAt"]
+    },
+    "GovernmentAdvisory": {
+      "title": "GovernmentAdvisory",
+      "description": "National security directives and statutory cybersecurity advisories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "agency": { "type": "string" },
+        "advisoryCode": { "type": "string" },
+        "title": { "type": "string" },
+        "severity": { "type": "string" },
+        "date": { "type": "string" },
+        "summary": { "type": "string" },
+        "actionRequired": { "type": "string" }
+      },
+      "required": ["agency", "advisoryCode", "title", "severity"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "SOC user profile records"
+    },
+    "/incidents/{incidentId}": {
+      "schema": "Incident",
+      "description": "CyberTrace threat and incident records"
+    },
+    "/protected_files/{fileId}": {
+      "schema": "ProtectedFile",
+      "description": "MiniVault cryptographic baseline integrity records"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "SOC alert and warning notifications"
+    },
+    "/security_events/{eventId}": {
+      "schema": "SecurityEvent",
+      "description": "Immutable SOC audit trail events"
+    },
+    "/government_reports/{reportId}": {
+      "schema": "GovernmentReport",
+      "description": "Statutory government regulatory incident filings"
+    },
+    "/government_advisories/{advisoryId}": {
+      "schema": "GovernmentAdvisory",
+      "description": "National threat advisories and alerts"
+    }
+  }
+}
