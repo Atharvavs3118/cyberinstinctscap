@@ -86,10 +86,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   const fillDemoAccount = (role: 'lead' | 'student') => {
     if (role === 'lead') {
-      setUsername('avance@cyberinstincts.soc');
+      setUsername('atharva@cyberinstincts.soc');
       setPassword('CyberInstincts2026!');
     } else {
-      setUsername('cadet@cyberinstincts.soc');
+      setUsername('rohan.deshmukh@cyberinstincts.soc');
       setPassword('CyberInstincts2026!');
     }
   };
@@ -210,10 +210,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     type="button"
                     disabled={submitting}
                     onClick={async () => {
-                      setUsername('avance@cyberinstincts.soc');
+                      setUsername('atharva@cyberinstincts.soc');
                       setPassword('CyberInstincts2026!');
                       setSubmitting(true);
-                      await onLogin({ username: 'avance@cyberinstincts.soc', password: 'CyberInstincts2026!' });
+                      await onLogin({ username: 'atharva@cyberinstincts.soc', password: 'CyberInstincts2026!' });
                       setSubmitting(false);
                       onClose();
                     }}

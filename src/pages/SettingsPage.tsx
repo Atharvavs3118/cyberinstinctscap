@@ -409,11 +409,49 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
 
             <button
               onClick={onOpenArchitecture}
-              className="w-full py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
             >
               <Cpu className="w-3.5 h-3.5 text-cyan-600" />
               <span>Inspect Full Architecture DDL</span>
             </button>
+          </div>
+
+          {/* Firebase & Firestore Cloud Database Card */}
+          <div className="glass-panel p-5 rounded-2xl border border-slate-200 bg-white shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <Shield className="w-4 h-4 text-blue-600" />
+                Firebase / Firestore
+              </h2>
+              <span className="text-[10px] font-mono text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                Connected
+              </span>
+            </div>
+
+            <div className="space-y-2.5 font-mono text-xs">
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-400 text-[10px] uppercase font-bold block">Firestore Database ID</span>
+                <span className="text-slate-900 font-semibold break-all text-[11px]">
+                  ai-studio-cyberinstincts-35cdcf75-280c-43e5-b321-991b57eb5b8a
+                </span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-400 text-[10px] uppercase font-bold block">Auth & Storage Collections</span>
+                <span className="text-slate-700 text-[11px]">
+                  <code>users</code>, <code>login_logs</code>, <code>security_events</code>
+                </span>
+              </div>
+
+              {user?.id && (
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-slate-400 text-[10px] uppercase font-bold block">Firestore User Document</span>
+                  <span className="text-blue-700 font-semibold text-[11px]">
+                    users/{user.id}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

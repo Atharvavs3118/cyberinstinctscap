@@ -196,6 +196,25 @@ export interface UserProfile {
   department: string;
   lastLogin: string;
   mfaEnabled: boolean;
+  avatar?: string;
+  isAuthenticated?: boolean;
+  provider?: string;
+  loginCount?: number;
+  lastLoginIp?: string;
+  firestoreDocRef?: string;
+}
+
+export interface LoginLogEntry {
+  id: string;
+  userId?: string;
+  email: string;
+  fullName?: string;
+  role?: string;
+  status: 'SUCCESS' | 'FAILED' | 'LOGOUT';
+  provider?: string;
+  ipAddress?: string;
+  userAgent?: string;
+  timestamp: string;
 }
 
 export interface SystemArchitectureInfo {

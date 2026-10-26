@@ -147,6 +147,18 @@ export const apiService = {
   /**
    * User Authentication: Firebase Auth + Firestore users collection
    */
+  async signInWithGoogle(): Promise<{ user: UserProfile; token: string }> {
+    return await fbAuth.signInWithGoogle();
+  },
+
+  async getRecentLoginLogs(limitCount = 10): Promise<import('../types').LoginLogEntry[]> {
+    return await fbAuth.getRecentLoginLogs(limitCount);
+  },
+
+  async getStoredFirestoreUsers(): Promise<UserProfile[]> {
+    return await fbAuth.getStoredFirestoreUsers();
+  },
+
   async loginUser(credentials: { username: string; password?: string }): Promise<{ user: UserProfile; token: string }> {
     try {
       return await fbAuth.loginUser(credentials);

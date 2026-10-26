@@ -218,11 +218,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* HIGH CONTRAST LOGIN BUTTON - Always visible on all screens */}
           <button
             onClick={() => {
-              if (onOpenAuth) {
-                onOpenAuth('login');
-              } else {
-                onTabChange('login');
-              }
+              onTabChange('login');
             }}
             className={`flex items-center gap-1.5 sm:gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer min-h-[36px] ${
               userProfile.isAuthenticated && userProfile.id !== 'usr-guest'

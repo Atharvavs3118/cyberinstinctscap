@@ -131,12 +131,34 @@
         "actionRequired": { "type": "string" }
       },
       "required": ["agency", "advisoryCode", "title", "severity"]
+    },
+    "LoginLog": {
+      "title": "LoginLog",
+      "description": "SOC authentication session and login access audit record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string" },
+        "status": { "type": "string", "enum": ["SUCCESS", "FAILED", "LOGOUT"] },
+        "provider": { "type": "string" },
+        "ipAddress": { "type": "string" },
+        "userAgent": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["email", "status", "timestamp"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": "User",
       "description": "SOC user profile records"
+    },
+    "/login_logs/{logId}": {
+      "schema": "LoginLog",
+      "description": "Audit records of all successful and attempted user authentications"
     },
     "/incidents/{incidentId}": {
       "schema": "Incident",
